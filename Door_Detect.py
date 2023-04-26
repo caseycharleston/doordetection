@@ -27,7 +27,6 @@ def detect(model, path):
     image = image.detach().clone()
     image = image.unsqueeze(0)
     decision = torch.sigmoid(model(image))
-    print(decision)
     # Converts numerical evaluation to its representative state
     return "Closed" if decision < 0.5 else "Open"
     

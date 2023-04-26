@@ -37,8 +37,17 @@ def test_close(model):
 
 def acc_test(model):
     print('\n### TESTING DATASET ACCURACY ###\n')
-    testset = os.lisdir('images/test')
-    print(testset)
+    acc = 0.0
+    testset = os.listdir('images/test')
+    size = len(testset)
+    for file in testset:
+        decision = dd.detect(model, 'images/test/' + file)
+        print (file, ' detected: ', decision)
+        if decision == 'Closed' and file[0] == 'c':
+            acc += 1
+        elif decision == 'Open' and file[0] == 'o':
+            acc += 1
+    print('Accuracy: ', acc/size * 100, '%')
 
 if __name__ == "__main__":
     main()
