@@ -1,5 +1,5 @@
 import Door_Detect as dd
-import torch
+import os
 
 # Main driver of the door detect script
 
@@ -7,6 +7,7 @@ def main():
     model = dd.load()
     # test_open(model)
     # test_close(model)
+    acc_test(model)
 
 def test_open(model):
     print('\n### DOOR OPEN IMAGE TEST ###\n')
@@ -33,6 +34,11 @@ def test_close(model):
             decision = dd.detect(model, file)
         finally:
             print(i, ' detected: ', decision)
+
+def acc_test(model):
+    print('\n### TESTING DATASET ACCURACY ###\n')
+    testset = os.lisdir('images/test')
+    print(testset)
 
 if __name__ == "__main__":
     main()
