@@ -5,12 +5,13 @@ import os
 
 def main():
     model = dd.load()
-    # test_open(model)
-    # test_close(model)
+    test_open(model)
+    test_close(model)
     acc_test(model)
 
 def test_open(model):
     print('\n### DOOR OPEN IMAGE TEST ###\n')
+    acc = 0.0
     for i in range(1, 48):
         decision = 0.0
         file = 'images/open/open' + str(i) + '.jpg'
@@ -21,10 +22,14 @@ def test_open(model):
             decision = dd.detect(model, file)
         finally:
             print(i, ' detected: ', decision)
+            if decision == 'Open':
+                acc += 1
+    print('Accuracy: ', acc/47)
 
 def test_close(model):
     print('\n### DOOR CLOSE IMAGE TEST ###\n')
-    for i in range(1, 48):
+    acc = 0.0
+    for i in range(1, 52):
         decision = 0.0
         file = 'images/close/closed' + str(i) + '.jpg'
         try:
@@ -34,6 +39,10 @@ def test_close(model):
             decision = dd.detect(model, file)
         finally:
             print(i, ' detected: ', decision)
+            if decision == 'Closed':
+                acc += 1
+    print('Accuracy: ', acc/51)
+            
 
 def acc_test(model):
     print('\n### TESTING DATASET ACCURACY ###\n')
